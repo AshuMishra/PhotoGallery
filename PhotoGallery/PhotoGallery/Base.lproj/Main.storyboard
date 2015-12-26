@@ -1,25 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xsH-1x-eAK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--PhotoViewController-->
+        <scene sceneID="ghM-Wi-b0H">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="at5-He-xG6" userLabel="PhotoViewController" customClass="PhotoViewController" customModule="PhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="X3b-bi-Yms"/>
+                        <viewControllerLayoutGuide type="bottom" id="LVF-OD-7pS"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="IhM-gD-X8t">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search by category...." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puc-E8-T6d">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="add-U8-zGy"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <connections>
+                                    <outlet property="delegate" destination="at5-He-xG6" id="cw8-xP-oNE"/>
+                                </connections>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="duU-Fx-YU6">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <animations/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nbv-1t-nFn">
+                                    <size key="itemSize" width="93" height="97"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="lVV-87-s6o" customClass="CustomFlickerCell" customModule="PhotoGallery" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="97"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1G5-hD-3ai">
+                                                    <rect key="frame" x="0.0" y="0.0" width="93" height="97"/>
+                                                    <animations/>
+                                                </imageView>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1G5-hD-3ai" secondAttribute="trailing" id="2ed-v5-Vga"/>
+                                            <constraint firstItem="1G5-hD-3ai" firstAttribute="leading" secondItem="lVV-87-s6o" secondAttribute="leading" id="85K-JV-jaH"/>
+                                            <constraint firstAttribute="bottom" secondItem="1G5-hD-3ai" secondAttribute="bottom" id="g8N-an-Hfs"/>
+                                            <constraint firstItem="1G5-hD-3ai" firstAttribute="top" secondItem="lVV-87-s6o" secondAttribute="top" id="u6o-8Q-yEr"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="flickerImageview" destination="1G5-hD-3ai" id="VdH-uP-hri"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="at5-He-xG6" id="ZaO-oj-sKw"/>
+                                    <outlet property="delegate" destination="at5-He-xG6" id="w3G-BI-mRi"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="puc-E8-T6d" firstAttribute="top" secondItem="X3b-bi-Yms" secondAttribute="bottom" id="8oF-RK-uqF"/>
+                            <constraint firstAttribute="centerX" secondItem="puc-E8-T6d" secondAttribute="centerX" id="CAj-in-qzT"/>
+                            <constraint firstAttribute="trailing" secondItem="duU-Fx-YU6" secondAttribute="trailing" id="GBM-kN-M3v"/>
+                            <constraint firstAttribute="trailing" secondItem="puc-E8-T6d" secondAttribute="trailing" id="NIk-E5-Wu9"/>
+                            <constraint firstItem="duU-Fx-YU6" firstAttribute="top" secondItem="puc-E8-T6d" secondAttribute="bottom" id="Vaq-Eh-Bzu"/>
+                            <constraint firstAttribute="centerX" secondItem="duU-Fx-YU6" secondAttribute="centerX" id="Wba-VQ-ThC"/>
+                            <constraint firstItem="puc-E8-T6d" firstAttribute="leading" secondItem="IhM-gD-X8t" secondAttribute="leading" id="jpW-FU-au0"/>
+                            <constraint firstItem="LVF-OD-7pS" firstAttribute="top" secondItem="duU-Fx-YU6" secondAttribute="bottom" id="urh-lk-VfG"/>
+                            <constraint firstItem="duU-Fx-YU6" firstAttribute="leading" secondItem="IhM-gD-X8t" secondAttribute="leading" id="yoC-aM-Aq4"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Google Photos" id="2mW-Dv-n0g"/>
+                    <connections>
+                        <outlet property="flickerCollectionView" destination="duU-Fx-YU6" id="N4V-oP-vOV"/>
+                        <outlet property="flickerSearchBar" destination="puc-E8-T6d" id="WbY-b5-ObU"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q0k-Ha-bFD" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1060" y="-341"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="m1o-YA-UiV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xsH-1x-eAK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="js5-Gs-Q5l">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="at5-He-xG6" kind="relationship" relationship="rootViewController" id="p8F-ps-y4H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IQP-CN-i1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="330" y="-346"/>
         </scene>
     </scenes>
 </document>

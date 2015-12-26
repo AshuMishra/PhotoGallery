@@ -7,6 +7,7 @@ use_frameworks!
 pod 'MBProgressHUD', '~> 0.9'
 pod 'SDWebImage', '~>3.7'
 pod 'Alamofire', '~> 3.0'
+pod 'IJReachability', :git => 'https://github.com/Isuru-Nanayakkara/IJReachability.git'
 
 # Do not change the following. This is a workaround for FRAMEWORK_SEARCH_PATHS not containing ${inherited}.
 # This is required so the project FRAMEWORK_SEARCH_PATHS are correctly passed onto its targets.

@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  PhotoViewController
 //  PhotoGallery
 //
-//  Created by Susmita Horrow on 26/12/15.
+//  Created by Ashutosh Mishra on 26/12/15.
 //  Copyright © 2015 Ashu.com. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class PhotoViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
