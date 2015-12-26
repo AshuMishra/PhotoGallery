@@ -17,25 +17,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let photo = "CmRdAAAAO9yu_X0A5-NtAw3mubRDUrA5--HUUn9n9EMFpKgsGdsAkf3J5cqsGF_Sxizh6mYUITwkOrTe7c9OJ4R93LmEpphs5u9IBP58eCx1bRwYUhotTQyuVC99kbwpdW1emaF8EhDguw4N7S4oWHfZ7_O7XMrvGhQiUbFtH9j-85jJSe7JcywDyMNOPg"
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		Alamofire.request(RequestRouter.fetchNearby("hospitals")).responseJSON { response -> Void in
-			switch response.result {
-			case .Success:
-				debugPrint(response)
-
-			case .Failure:
-				debugPrint(response)
+	Place.fetchNearbyPlaces("hospitals") { (places, error) -> Void in
+		if let places = places {
+		for place in places {
+			if let photos = place.photos where photos.count > 0 {
+			let photo = photos[0] as Photo
+			Place.fetchPhotos(photo.reference, completion: { (photo, error) -> Void in
+				print("Photo = \(photo)")
+			})
+		}
 			}
 		}
-		Alamofire.request(RequestRouter.fetchPhoto(photo)).response { response -> Void in
-		debugPrint(response)
-//			switch response.result {
-//			case .Success:
-//				debugPrint(response)
-//
-//			case .Failure:
-//				debugPrint(response)
-//			}
 		}
+//		Alamofire.request(RequestRouter.fetchPhoto(photo)).response { response -> Void in
+//		debugPrint(response)
+////			switch response.result {
+////			case .Success:
+////				debugPrint(response)
+////
+////			case .Failure:
+////				debugPrint(response)
+////			}
+//		}
 		return true
 	}
 	func applicationWillResignActive(application: UIApplication) {

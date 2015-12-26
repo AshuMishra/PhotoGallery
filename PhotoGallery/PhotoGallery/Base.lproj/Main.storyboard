@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--PhotoViewController-->
@@ -83,6 +84,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0k-Ha-bFD" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1060" y="-341"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="iaB-tI-Y4I">
+            <objects>
+                <viewController title="Detail" id="cMN-pB-BY9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ztg-ac-JPw"/>
+                        <viewControllerLayoutGuide type="bottom" id="wsw-kG-6Ki"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pyg-cX-kxQ">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-it-YI5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="268"/>
+                                <animations/>
+                            </scrollView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Vcl-it-YI5" secondAttribute="trailing" id="UGX-50-W83"/>
+                            <constraint firstItem="Vcl-it-YI5" firstAttribute="top" secondItem="Ztg-ac-JPw" secondAttribute="bottom" id="VyK-Cv-5I8"/>
+                            <constraint firstItem="Vcl-it-YI5" firstAttribute="leading" secondItem="pyg-cX-kxQ" secondAttribute="leading" id="c73-qp-tsW"/>
+                            <constraint firstItem="Vcl-it-YI5" firstAttribute="height" secondItem="pyg-cX-kxQ" secondAttribute="height" multiplier="1:2" id="uTg-HL-OUC"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HdT-AE-yXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1701" y="-341"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m1o-YA-UiV">
