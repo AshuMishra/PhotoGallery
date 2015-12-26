@@ -12,6 +12,7 @@ import Alamofire
 class CustomFlickerCell: UICollectionViewCell {
 
 	@IBOutlet weak var flickerImageview: UIImageView!
+	@IBOutlet weak var placeNameLabel: UILabel!
 	var request: Alamofire.Request?
 	var isExpanded:Bool = false
 }

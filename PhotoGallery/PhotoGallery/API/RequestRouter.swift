@@ -76,6 +76,7 @@ enum RequestRouter: URLRequestConvertible {
 			do {
 				let jsonData = try NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions.PrettyPrinted)
 				mutableURLRequest.HTTPBody = jsonData
+				mutableURLRequest.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
 			}
 			catch {
 				debugPrint("Error while creating URL Request \(error)")

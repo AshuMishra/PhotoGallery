@@ -15,13 +15,13 @@ public typealias FetchPhotoCompletionHandler = (image: UIImage?, error: APIError
 
 extension Place {
 	static	func fetchNearbyPlaces(query: String, completion: FetchPlaceCompletionHandler) {
+		APIInterface.makeRequest() {
 		Alamofire.request(RequestRouter.fetchNearby(query)).responseJSON { response -> Void in
 			switch response.result {
 			case .Success:
 				if let resultValue = response.result.value {
 					let placeArray = JSON(resultValue)["results"].arrayValue
 					let places = placeArray.map{ Place(info: $0) }
-					print(places.count)
 					completion(places: places, error: nil)
 				}else {
 					completion(places: nil, error: nil)
@@ -33,11 +33,12 @@ extension Place {
 				completion(places: nil, error: apiError)
 				debugPrint(response)
 			}
+			}
 		}
 	}
 	static	func fetchPhotos(query: String, completion: FetchPhotoCompletionHandler) {
-		Alamofire.request(RequestRouter.fetchPhoto(query)).response { response -> Void in
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+		 Alamofire.request(RequestRouter.fetchPhoto(query)).response { response -> Void in
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
 				let image = UIImage(data: response.2! as NSData)
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
 					if let image = image {
@@ -49,5 +50,6 @@ extension Place {
 				})
 			}
 		}
+//		debugPrint(req)
 	}
 }
