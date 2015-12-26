@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		Alamofire.request(RequestRouter.fetchNearby("hospitals")).responseJSON { response -> Void in
+			switch response.result {
+			case .Success:
+				debugPrint(response)
+
+			case .Failure:
+				debugPrint(response)
+			}
+		}
 		return true
 	}
 

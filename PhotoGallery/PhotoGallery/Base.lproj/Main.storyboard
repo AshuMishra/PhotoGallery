@@ -24,9 +24,6 @@
                                     <constraint firstAttribute="height" constant="44" id="add-U8-zGy"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                <connections>
-                                    <outlet property="delegate" destination="at5-He-xG6" id="cw8-xP-oNE"/>
-                                </connections>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="duU-Fx-YU6">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
@@ -65,10 +62,6 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="at5-He-xG6" id="ZaO-oj-sKw"/>
-                                    <outlet property="delegate" destination="at5-He-xG6" id="w3G-BI-mRi"/>
-                                </connections>
                             </collectionView>
                         </subviews>
                         <animations/>
@@ -86,10 +79,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Google Photos" id="2mW-Dv-n0g"/>
-                    <connections>
-                        <outlet property="flickerCollectionView" destination="duU-Fx-YU6" id="N4V-oP-vOV"/>
-                        <outlet property="flickerSearchBar" destination="puc-E8-T6d" id="WbY-b5-ObU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0k-Ha-bFD" sceneMemberID="firstResponder"/>
             </objects>

@@ -11,13 +11,12 @@
 		4E2A59CF1C2E8FCD00AE35A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A59CE1C2E8FCD00AE35A4 /* Assets.xcassets */; };
 		4E2A59D21C2E8FCD00AE35A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A59D01C2E8FCD00AE35A4 /* LaunchScreen.storyboard */; };
 		4EBFF9851C2E99010017E82D /* DiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9801C2E99010017E82D /* DiskCache.m */; };
-		4EBFF9861C2E99010017E82D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9811C2E99010017E82D /* NetworkManager.swift */; };
 		4EBFF9871C2E99010017E82D /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9831C2E99010017E82D /* NSString+MD5.m */; };
-		4EBFF9881C2E99010017E82D /* Paginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9841C2E99010017E82D /* Paginator.swift */; };
 		4EBFF98A1C2E99E80017E82D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9891C2E99E80017E82D /* ViewController.swift */; };
 		4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9901C2E9AAA0017E82D /* PhotoGallery.xcdatamodel */; };
 		4EBFF9941C2E9B1B0017E82D /* CustomFlickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9931C2E9B1B0017E82D /* CustomFlickerCell.swift */; };
 		4EBFF9961C2E9B710017E82D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9951C2E9B710017E82D /* AppDelegate.swift */; };
+		4EBFF99A1C2E9FA50017E82D /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9991C2E9FA50017E82D /* RequestRouter.swift */; };
 		DACDADD669CECA68333FC892 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9411FD0406B994E784E83 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,14 +29,13 @@
 		4E2A59D31C2E8FCD00AE35A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EBFF97F1C2E99010017E82D /* DiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiskCache.h; path = Utility/DiskCache.h; sourceTree = "<group>"; };
 		4EBFF9801C2E99010017E82D /* DiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiskCache.m; path = Utility/DiskCache.m; sourceTree = "<group>"; };
-		4EBFF9811C2E99010017E82D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Utility/NetworkManager.swift; sourceTree = "<group>"; };
 		4EBFF9821C2E99010017E82D /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Utility/NSString+MD5.h"; sourceTree = "<group>"; };
 		4EBFF9831C2E99010017E82D /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Utility/NSString+MD5.m"; sourceTree = "<group>"; };
-		4EBFF9841C2E99010017E82D /* Paginator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Paginator.swift; path = Utility/Paginator.swift; sourceTree = "<group>"; };
 		4EBFF9891C2E99E80017E82D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "View Controllers/ViewController.swift"; sourceTree = "<group>"; };
 		4EBFF9901C2E9AAA0017E82D /* PhotoGallery.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PhotoGallery.xcdatamodel; path = Model/PhotoGallery.xcdatamodel; sourceTree = "<group>"; };
 		4EBFF9931C2E9B1B0017E82D /* CustomFlickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomFlickerCell.swift; path = PhotoGallery/CustomViews/CustomFlickerCell.swift; sourceTree = "<group>"; };
 		4EBFF9951C2E9B710017E82D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "AppDelegate Files/AppDelegate.swift"; sourceTree = "<group>"; };
+		4EBFF9991C2E9FA50017E82D /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
 		C0C9411FD0406B994E784E83 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6878EAB919384D817E7D439 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +97,7 @@
 		4EBFF9751C2E91B10017E82D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				4EBFF9991C2E9FA50017E82D /* RequestRouter.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -155,8 +154,6 @@
 		4EBFF97C1C2E97A50017E82D /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				4EBFF9811C2E99010017E82D /* NetworkManager.swift */,
-				4EBFF9841C2E99010017E82D /* Paginator.swift */,
 				4EBFF97F1C2E99010017E82D /* DiskCache.h */,
 				4EBFF9801C2E99010017E82D /* DiskCache.m */,
 				4EBFF9821C2E99010017E82D /* NSString+MD5.h */,
@@ -307,10 +304,9 @@
 			files = (
 				4EBFF9961C2E9B710017E82D /* AppDelegate.swift in Sources */,
 				4EBFF9871C2E99010017E82D /* NSString+MD5.m in Sources */,
+				4EBFF99A1C2E9FA50017E82D /* RequestRouter.swift in Sources */,
 				4EBFF9851C2E99010017E82D /* DiskCache.m in Sources */,
-				4EBFF9881C2E99010017E82D /* Paginator.swift in Sources */,
 				4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */,
-				4EBFF9861C2E99010017E82D /* NetworkManager.swift in Sources */,
 				4EBFF9941C2E9B1B0017E82D /* CustomFlickerCell.swift in Sources */,
 				4EBFF98A1C2E99E80017E82D /* ViewController.swift in Sources */,
 			);
@@ -429,7 +425,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PhotoGallery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ashutosh.com.PhotoGallery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ashutosh.PhotoGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PhotoGallery/PhotoGallery-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -444,7 +440,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PhotoGallery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ashutosh.com.PhotoGallery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ashutosh.PhotoGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PhotoGallery/PhotoGallery-Bridging-Header.h";
 			};
