@@ -14,8 +14,7 @@ import Alamofire
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
-
+	let photo = "CmRdAAAAO9yu_X0A5-NtAw3mubRDUrA5--HUUn9n9EMFpKgsGdsAkf3J5cqsGF_Sxizh6mYUITwkOrTe7c9OJ4R93LmEpphs5u9IBP58eCx1bRwYUhotTQyuVC99kbwpdW1emaF8EhDguw4N7S4oWHfZ7_O7XMrvGhQiUbFtH9j-85jJSe7JcywDyMNOPg"
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		Alamofire.request(RequestRouter.fetchNearby("hospitals")).responseJSON { response -> Void in
@@ -27,9 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				debugPrint(response)
 			}
 		}
+		Alamofire.request(RequestRouter.fetchPhoto(photo)).response { response -> Void in
+		debugPrint(response)
+//			switch response.result {
+//			case .Success:
+//				debugPrint(response)
+//
+//			case .Failure:
+//				debugPrint(response)
+//			}
+		}
 		return true
 	}
-
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

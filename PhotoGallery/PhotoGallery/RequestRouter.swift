@@ -13,22 +13,26 @@ enum RequestRouter: URLRequestConvertible {
 	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
 	private static let baseURL = "https://maps.googleapis.com/maps/api/place"
 	private static let placeSearchURL = "/nearbysearch/json"
-	private static let photoFetchURL = "photo?"
+	private static let photoFetchURL = "/photo"
 
 	//MARK: API Endpoints
 	case fetchNearby(String)
+	case fetchPhoto(String)
 
 	//MARK: Endpoint dependent
 	private var headers: [String: String] {
-		return  [
-			"Content-Type": "application/json",
-		]
+		switch self {
+		case .fetchPhoto:
+			return ["Content-Type": "image/png"]
+		default:
+			return ["Content-Type": "application/json"]
+		}
 	}
 
 	private var baseUrl: String {
 		switch(self){
 		default:
-			return RequestRouter.baseURL + RequestRouter.placeSearchURL
+			return RequestRouter.baseURL
 		}
 	}
 
@@ -36,10 +40,21 @@ enum RequestRouter: URLRequestConvertible {
 		return .GET
 	}
 
+	private var path: String {
+		switch self {
+		case .fetchNearby:
+			return "/nearbysearch/json"
+		case .fetchPhoto:
+			return "/photo"
+		}
+	}
+
 	private var parameters: [String: String]? {
 		switch self {
 		case .fetchNearby:
 			return ["key": RequestRouter.apiKey, "radius": String(50000), "location": "37.785834,-122.406417", "senser": "true"]
+		case .fetchPhoto(let photoReference):
+			return ["key": RequestRouter.apiKey, "photoreference": photoReference, "maxwidth": String(400)]
 		}
 	}
 
@@ -51,7 +66,7 @@ enum RequestRouter: URLRequestConvertible {
 	var URLRequest: NSMutableURLRequest {
 		let URL = NSURL(string: baseUrl)!
 
-		let mutableURLRequest = NSMutableURLRequest(URL: URL)
+		let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
 		mutableURLRequest.HTTPMethod = method.rawValue
 		for (headerField, headerValue) in headers {
 			mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
