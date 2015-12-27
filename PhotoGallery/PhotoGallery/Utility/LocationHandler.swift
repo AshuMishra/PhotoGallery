@@ -22,6 +22,7 @@ class LocationHandler: NSObject, CLLocationManagerDelegate, UIAlertViewDelegate 
 		var manager = CLLocationManager()
 		manager.delegate = self
 		manager.desiredAccuracy = kCLLocationAccuracyBest
+		manager.distanceFilter = 20.0
 		return manager
 	}()
 

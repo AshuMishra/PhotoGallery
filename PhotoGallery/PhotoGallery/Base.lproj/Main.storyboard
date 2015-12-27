@@ -25,6 +25,9 @@
                                     <constraint firstAttribute="height" constant="44" id="add-U8-zGy"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <connections>
+                                    <outlet property="delegate" destination="at5-He-xG6" id="A8h-MI-Z3b"/>
+                                </connections>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="duU-Fx-YU6">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
@@ -102,6 +105,7 @@
                     <navigationItem key="navigationItem" title="Google Photos" id="2mW-Dv-n0g"/>
                     <connections>
                         <outlet property="photoGalleryColletionView" destination="duU-Fx-YU6" id="1u2-G6-ISL"/>
+                        <outlet property="placeSearchBar" destination="puc-E8-T6d" id="QuS-nh-XY3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0k-Ha-bFD" sceneMemberID="firstResponder"/>
