@@ -17,24 +17,38 @@ class PhotoViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		Place.fetchNearbyPlaces("hospitals") { [weak self](places, error) -> Void in
-//			if let places = places {
-//				guard let weakSelf = self else {
-//					return
-//				}
-//				weakSelf.searchArray = places
-//				for place in places {
-//					if let photos = place.photos where photos.count > 0 {
-//						let photo = photos[0] as Photo
-//						Place.fetchPhotos(photo.reference, completion: { (photo, error) -> Void in
-//							weakSelf.images[place.placeId] = photo
-//							self!.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
-//							weakSelf.photoGalleryColletionView.reloadData()
-//						})
-//					}
-//				}
-//			}
-//		}
+		LocationHandler.sharedInstance.fetchLocation { (location, error) -> () in
+			print("location = \(location)")
+			print("(\(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
+			if error != nil {
+				let alert: UIAlertView = UIAlertView(title: "Location Service Disabled",
+					message: "To enable, please go to Settings and turn on Location Service for this app.",
+					delegate: nil, cancelButtonTitle: "Not Now", otherButtonTitles: "Enable")
+
+				alert.show()
+			} else {
+				Place.fetchNearbyPlaces("bar") { [weak self](places, error) -> Void in
+					if let places = places {
+						guard let weakSelf = self else {
+							return
+						}
+						weakSelf.searchArray = places
+						for place in places {
+							if let photos = place.photos where photos.count > 0 {
+								let photo = photos[0] as Photo
+								Place.fetchPhotos(photo.reference, completion: { (photo, error) -> Void in
+									weakSelf.images[place.placeId] = photo
+									self!.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
+									weakSelf.photoGalleryColletionView.reloadData()
+								})
+							}
+						}
+					}
+				}
+
+			}
+
+		}
 	}
 
 	override func didReceiveMemoryWarning() {

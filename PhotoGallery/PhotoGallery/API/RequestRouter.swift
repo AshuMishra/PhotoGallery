@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import CoreLocation
 
 enum RequestRouter: URLRequestConvertible {
 	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
@@ -51,8 +52,10 @@ enum RequestRouter: URLRequestConvertible {
 
 	private var parameters: [String: String]? {
 		switch self {
-		case .fetchNearby:
-			return ["key": RequestRouter.apiKey, "radius": String(50000), "location": "37.785834,-122.406417", "senser": "true"]
+		case .fetchNearby(let searchParam):
+			let coordinateString = String(format: "%f,%f", LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude,
+				LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude)
+			return ["key": RequestRouter.apiKey, "radius": String(50000), "location": coordinateString, "senser": "true", "types": searchParam]
 		case .fetchPhoto(let photoReference):
 			return ["key": RequestRouter.apiKey, "photoreference": photoReference, "maxwidth": String(400)]
 		}
