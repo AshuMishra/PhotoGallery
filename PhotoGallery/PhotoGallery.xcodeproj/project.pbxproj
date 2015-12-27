@@ -23,6 +23,8 @@
 		4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */; };
 		4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */; };
 		4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */; };
+		4EBFF9B71C2FE2490017E82D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */; };
+		4EBFF9B91C2FE29A0017E82D /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */; };
 		DACDADD669CECA68333FC892 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9411FD0406B994E784E83 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestRouter.swift; path = API/RequestRouter.swift; sourceTree = "<group>"; };
 		4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIInterface.swift; path = API/APIInterface.swift; sourceTree = "<group>"; };
 		4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = "View Controllers/PreviewViewController.swift"; sourceTree = "<group>"; };
+		4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = Utility/LocationHandler.swift; sourceTree = "<group>"; };
 		C0C9411FD0406B994E784E83 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6878EAB919384D817E7D439 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBFF9B71C2FE2490017E82D /* CoreLocation.framework in Frameworks */,
 				DACDADD669CECA68333FC892 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +72,7 @@
 		49E7F59CDFBB7AC57AC5A2A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */,
 				C0C9411FD0406B994E784E83 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -176,6 +182,7 @@
 				4EBFF9801C2E99010017E82D /* DiskCache.m */,
 				4EBFF9821C2E99010017E82D /* NSString+MD5.h */,
 				4EBFF9831C2E99010017E82D /* NSString+MD5.m */,
+				4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -330,6 +337,7 @@
 				4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */,
 				4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */,
 				4EBFF9941C2E9B1B0017E82D /* CustomFlickerCell.swift in Sources */,
+				4EBFF9B91C2FE29A0017E82D /* LocationHandler.swift in Sources */,
 				4EBFF98A1C2E99E80017E82D /* PhotoViewController.swift in Sources */,
 				4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */,
 				4EBFF9A91C2EDE050017E82D /* APIError.swift in Sources */,

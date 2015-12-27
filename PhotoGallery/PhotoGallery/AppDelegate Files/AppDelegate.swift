@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		LocationHandler.sharedInstance.fetchLocation { (location, error) -> () in
+			print("location = \(location)")
+			print("(\(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
+			if error != nil {
+				let alert: UIAlertView = UIAlertView(title: "Location Service Disabled",
+												   message: "To enable, please go to Settings and turn on Location Service for this app.",
+												  delegate: nil, cancelButtonTitle: "Not Now", otherButtonTitles: "Enable")
+	
+				alert.show()
+		}
+
+		}
 		return true
 	}
 	func applicationWillResignActive(application: UIApplication) {
