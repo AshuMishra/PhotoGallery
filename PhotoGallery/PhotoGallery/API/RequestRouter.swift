@@ -10,8 +10,9 @@ import Alamofire
 import CoreLocation
 
 enum RequestRouter: URLRequestConvertible {
-//	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
-	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
+	private static let apiKey = "AIzaSyAnDXb3gC76ceYu0bmxD7VLYpoxtXPfeLI"
+//	private static let apiKey = "AIzaSyDcVdTt0oi9nQiWCIJQNGj05_mC-lIoW9c"
+//	private static let apiKey = "AIzaSyDWE_tts4r7wV-fC13gAG0gzC1Z3sQeXz4"
 	private static let baseURL = "https://maps.googleapis.com/maps/api/place"
 	private static let placeSearchURL = "/nearbysearch/json"
 	private static let photoFetchURL = "/photo"
@@ -56,6 +57,7 @@ enum RequestRouter: URLRequestConvertible {
 			let coordinateString = String(format: "%f,%f", LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude,
 				LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude)
 			return ["key": RequestRouter.apiKey, "radius": String(50000), "location": coordinateString, "senser": "true", "types": searchParam]
+
 		case .fetchPhoto(let photoReference):
 			return ["key": RequestRouter.apiKey, "photoreference": photoReference, "maxwidth": String(400)]
 		}

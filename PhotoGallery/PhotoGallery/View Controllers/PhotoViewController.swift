@@ -8,35 +8,56 @@
 
 import UIKit
 import AlamofireImage
+import SwiftyJSON
 
 class PhotoViewController: UIViewController {
 
 	@IBOutlet weak var photoGalleryColletionView: UICollectionView!
 	@IBOutlet weak var placeSearchBar: UISearchBar!
+	var paginator: Paginator?
 	var searchArray = [Place]()
 	var images = [String: UIImage]()
 	let imageCache = NSCache()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupPaginator()
 		getCurrentLocation()
 	}
 
+	private func setupPaginator() {
+		paginator = Paginator(requestUrl: RequestRouter.fetchNearby("bar"))
+	}
+
 	private func getNearByPlacesWithImage(placeName: String) {
-		Place.fetchNearbyPlaces(placeName) { [weak self](places, error) -> Void in
-			if let places = places {
-				guard let weakSelf = self else {
-					return
-				}
-				weakSelf.searchArray = places
-				weakSelf.photoGalleryColletionView.reloadData()
-//				weakSelf.getImages()
-			}else {
-				if error != nil {
-					print("\(error?.message)")
-				}
+		searchArray.removeAll()
+		paginator?.loadFirst({ [weak self] (result, error, allPagesLoaded) -> () in
+			guard let weakSelf = self else {
+				return
 			}
-		}
+			if let result = result {
+				for placeInfo in result {
+					weakSelf.searchArray.append(Place(info: placeInfo))
+				}
+				weakSelf.photoGalleryColletionView.reloadData()
+			}else {
+				print("\(error?.message)")
+			}
+		})
+//		Place.fetchNearbyPlaces(placeName) { [weak self](places, error) -> Void in
+//			if let places = places {
+//				guard let weakSelf = self else {
+//					return
+//				}
+//				weakSelf.searchArray = places
+//				weakSelf.photoGalleryColletionView.reloadData()
+////				weakSelf.getImages()
+//			}else {
+//				if error != nil {
+//					print("\(error?.message)")
+//				}
+//			}
+//		}
 	}
 
 	private func getImages() {
@@ -73,7 +94,6 @@ class PhotoViewController: UIViewController {
 					preferredStyle: UIAlertControllerStyle.Alert)
 				weakSelf.presentViewController(alertVC, animated: true, completion: nil)
 			}else {
-				weakSelf.getNearByPlacesWithImage("hospitals")
 			}
 		}
 	}
@@ -116,7 +136,7 @@ extension PhotoViewController : UICollectionViewDataSource {
 			cell.placeNameLabel.text = place.name
 			if let photos = place.photos where photos.count > 0 {
 				let photo = photos[0]
-				cell.flickerImageview.af_setImageWithURL(RequestRouter.fetchPhoto(photo.reference).URLRequest.URL!)
+//				cell.flickerImageview.af_setImageWithURL(RequestRouter.fetchPhoto(photo.reference).URLRequest.URL!)
 			}
 //			cell.flickerImageview.image = images[place.placeId]
 		}
@@ -145,8 +165,20 @@ extension PhotoViewController : UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		searchArray.removeAll(keepCapacity: true)
 		placeSearchBar.resignFirstResponder()
+		self.searchArray.removeAll()
 		if let searchText = searchBar.text where searchText.characters.count >= 3 {
-			getNearByPlacesWithImage(searchText)
+			if paginator?.nextPageToken.isEmpty == true {
+				getNearByPlacesWithImage(searchText)
+			}else {
+				paginator?.loadNext({ (result, error, allPagesLoaded) -> () in
+					if let result = result {
+						for placeInfo in result {
+							self.searchArray.append(Place(info: placeInfo))
+						}
+						self.photoGalleryColletionView.reloadData()
+					}
+				})
+			}
 		}
 	}
 	

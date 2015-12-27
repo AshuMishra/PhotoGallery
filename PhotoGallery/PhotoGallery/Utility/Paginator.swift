@@ -13,105 +13,139 @@ import Alamofire
 import SwiftyJSON
 
 class Paginator: NSObject {
-	
-	var url: String
-	var parameters: [String:String]
-	private var finalResult: [AnyObject]
+	var url: URLRequestConvertible
+	private var finalResult: [JSON]
 	var pageCount = 0
-	var nextPageToken: NSString?
+	var nextPageToken: String = ""
 	var isCallInProgress:Bool = false
-	var allPagesLoaded:Bool = false
+	private var allPagesLoaded:Bool = false
 	
-	typealias RequestCompletionBlock = (result: [AnyObject]?, error: NSError?, allPagesLoaded:Bool) -> ()
+	typealias RequestCompletionBlock = (result: [JSON]?, error: APIError?, allPagesLoaded:Bool) -> ()
 	
-	init(urlString:NSString,queryParameters:[String:String]?) {
-		url = urlString as String
-		parameters = queryParameters!
-		finalResult = [String]()
+	init(requestUrl: URLRequestConvertible) {
+		url = requestUrl
+		finalResult = [JSON]()
 	}
 	
 	func reset() {
-		self.pageCount = 0
-		self.finalResult = []
+		pageCount = 0
+		finalResult = []
 	}
 	
 	func shouldLoadNext()-> Bool {
 		return !(allPagesLoaded && isCallInProgress)
 	}
-	
-	func loadFirst(completionBlock:RequestCompletionBlock) {
-		//Load the first page of search results
-		
-		var checkInternetConnection:Bool = IJReachability.isConnectedToNetwork()
-		if checkInternetConnection {
-			self.reset()
-			
-			var params = parameters
-			let page = 1
-			params["page"] = String(page)
-			self.finalResult = [String]()
-			isCallInProgress = false
-			
 
-			HUDController.sharedController.contentView = HUDContentView.ProgressView()
-			HUDController.sharedController.show()
-			
-			Alamofire.request(.GET, baseURL, parameters: params, encoding: ParameterEncoding.URL).responseJSON { (request, response, data , error) -> Void in
-			if data != nil {
-				let jsonData = JSON(data!)
-				let photos: Array<JSON> = jsonData["photos"].arrayValue
-				for photo in photos {
-					let dict:Dictionary = photo.dictionaryValue
-					var URLString:String = dict["image_url"]!.stringValue
-					self.finalResult.append(URLString)
+	func loadFirst(completion:RequestCompletionBlock) {
+		print("********************************")
+		print("loading first page")
+		reset()
+		isCallInProgress = true
+
+			let req = Alamofire.request(self.url).responseJSON(completionHandler: {
+			[weak self] response -> Void in
+				guard let weakSelf = self else {
+					return
 				}
-				HUDController.sharedController.hide(animated: true)
-				completionBlock(result: self.finalResult,error: error,allPagesLoaded:false)
-				self.isCallInProgress = false
+				print("entered into the block")
+				weakSelf.isCallInProgress = false
+				let parsedResult = weakSelf.parseResult(response)
+				if parsedResult.0 == true {
+					completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+				}else if parsedResult.1 != nil {
+					completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
+				}else {
+					completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+				}
+			})
+			debugPrint(req)
+
+	}
+
+	func parseResult(response: Response<AnyObject, NSError>) -> (Bool, APIError?) {
+		switch response.result {
+		case .Success:
+			if let resultValue = response.result.value {
+				let jsonResult = JSON(resultValue)
+				finalResult.appendContentsOf(jsonResult["results"].arrayValue)
+				nextPageToken = jsonResult["next_page_token"].stringValue
+				allPagesLoaded = nextPageToken.isEmpty
+				pageCount++
+				let status = jsonResult["status"].stringValue
+				if status == "OVER_QUERY_LIMIT" {
+					let errorMessage = JSON(resultValue)["error_message"].stringValue
+					let apiError = APIError(code: 5, message: errorMessage)
+					return (false, apiError)
+				}else if status == "REQUEST_DENIED" {
+					let errorMessage = JSON(resultValue)["error_message"].stringValue
+					let apiError = APIError(code: 5, message: errorMessage)
+					return (false, apiError)
+				}else {
+					return (true, nil)
+				}
 			}else {
-				HUDController.sharedController.hide(animated: true)
+				return (false, nil)
 			}
-			}
-		}else {
-			
-//			self.showNetworkError()
-			HUDController.sharedController.hide(animated: true)
-			var error = NSError(domain: "Network error", code: 1, userInfo: nil)
-			completionBlock(result: nil, error: error, allPagesLoaded: false)
-			isCallInProgress = false
+		case .Failure:
+			let apiError = APIError(code: 5, message: "API Error")
+			return (false, apiError)
 		}
-		
-	}
-	
-	func showNetworkError() {
-		UIAlertView(title: "Error", message: "Device is not connected to internet. Please check connection and try again.", delegate: nil, cancelButtonTitle: "OK").show()
 	}
 
-	func loadNext(completionBlock:RequestCompletionBlock) {
-		if (self.isCallInProgress) {return}
-		var checkInternetConnection:Bool = IJReachability.isConnectedToNetwork()
-		if checkInternetConnection {
-			var params = parameters
-			self.pageCount =  self.pageCount + 1
-			params["page"] = String(self.pageCount)
-			isCallInProgress = true
-			Alamofire.request(.GET, baseURL, parameters: params, encoding: ParameterEncoding.URL).responseJSON { (request, response, data , error) -> Void in
-				let jsonData = JSON(data!)
-				let photos: Array<JSON> = jsonData["photos"].arrayValue
-				for photo in photos {
-					let dict:Dictionary = photo.dictionaryValue
-					var URLString:String = dict["image_url"]!.stringValue
-					self.finalResult.append(URLString)
-				}
-				completionBlock(result: self.finalResult,error: error,allPagesLoaded:false)
-				self.isCallInProgress = false
+	func loadNext(completion:RequestCompletionBlock) {
+		print("current count = \(finalResult.count)")
+		if isCallInProgress || allPagesLoaded {
+			return
+		} else {
+//		print("next = \(nextPageToken)")
+		let nextURLString = String(format: "%@&pagetoken=%@", url.URLRequest.URLString, nextPageToken)
+		let req = Alamofire.request(.GET, nextURLString).responseJSON {[weak self] response -> Void in
+			guard let weakSelf = self else {
+				return
 			}
-			
-		}else {
-//			self.showNetworkError()
-			completionBlock(result: self.finalResult, error: nil, allPagesLoaded: false)
-			isCallInProgress = false
+			weakSelf.isCallInProgress = false
+			let parsedResult = weakSelf.parseResult(response)
+			if parsedResult.0 == true {
+				completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+			}else if parsedResult.1 != nil {
+				completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
+			}else {
+				completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+			}
 		}
-	  }
-	
+			debugPrint(req)
+	}
+	}
+
 }
+
+//
+//	func loadNext(completionBlock:RequestCompletionBlock) {
+//		if (self.isCallInProgress) {return}
+//		var checkInternetConnection:Bool = IJReachability.isConnectedToNetwork()
+//		if checkInternetConnection {
+//			var params = parameters
+//			self.pageCount =  self.pageCount + 1
+//			params["page"] = String(self.pageCount)
+//			isCallInProgress = true
+//			Alamofire.request(.GET, baseURL, parameters: params, encoding: ParameterEncoding.URL).responseJSON { 
+//(request, response, data , error) -> Void in
+//				let jsonData = JSON(data!)
+//				let photos: Array<JSON> = jsonData["photos"].arrayValue
+//				for photo in photos {
+//					let dict:Dictionary = photo.dictionaryValue
+//					var URLString:String = dict["image_url"]!.stringValue
+//					self.finalResult.append(URLString)
+//				}
+//				completionBlock(result: self.finalResult,error: error,allPagesLoaded:false)
+//				self.isCallInProgress = false
+//			}
+//			
+//		}else {
+////			self.showNetworkError()
+//			completionBlock(result: self.finalResult, error: nil, allPagesLoaded: false)
+//			isCallInProgress = false
+//		}
+//	  }
+//	
+//}

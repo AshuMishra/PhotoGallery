@@ -10,8 +10,6 @@
 		4E2A59CA1C2E8FCD00AE35A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A59C81C2E8FCD00AE35A4 /* Main.storyboard */; };
 		4E2A59CF1C2E8FCD00AE35A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A59CE1C2E8FCD00AE35A4 /* Assets.xcassets */; };
 		4E2A59D21C2E8FCD00AE35A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A59D01C2E8FCD00AE35A4 /* LaunchScreen.storyboard */; };
-		4EBFF9851C2E99010017E82D /* DiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9801C2E99010017E82D /* DiskCache.m */; };
-		4EBFF9871C2E99010017E82D /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9831C2E99010017E82D /* NSString+MD5.m */; };
 		4EBFF98A1C2E99E80017E82D /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9891C2E99E80017E82D /* PhotoViewController.swift */; };
 		4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9901C2E9AAA0017E82D /* PhotoGallery.xcdatamodel */; };
 		4EBFF9941C2E9B1B0017E82D /* CustomFlickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9931C2E9B1B0017E82D /* CustomFlickerCell.swift */; };
@@ -23,9 +21,9 @@
 		4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */; };
 		4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */; };
 		4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */; };
+		4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B31C2FD65A0017E82D /* Paginator.swift */; };
 		4EBFF9B71C2FE2490017E82D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */; };
 		4EBFF9B91C2FE29A0017E82D /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */; };
-		4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B31C2FD65A0017E82D /* Paginator.swift */; };
 		DACDADD669CECA68333FC892 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9411FD0406B994E784E83 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,10 +34,6 @@
 		4E2A59CE1C2E8FCD00AE35A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E2A59D11C2E8FCD00AE35A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2A59D31C2E8FCD00AE35A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EBFF97F1C2E99010017E82D /* DiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiskCache.h; path = Utility/DiskCache.h; sourceTree = "<group>"; };
-		4EBFF9801C2E99010017E82D /* DiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiskCache.m; path = Utility/DiskCache.m; sourceTree = "<group>"; };
-		4EBFF9821C2E99010017E82D /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Utility/NSString+MD5.h"; sourceTree = "<group>"; };
-		4EBFF9831C2E99010017E82D /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Utility/NSString+MD5.m"; sourceTree = "<group>"; };
 		4EBFF9891C2E99E80017E82D /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoViewController.swift; path = "View Controllers/PhotoViewController.swift"; sourceTree = "<group>"; };
 		4EBFF9901C2E9AAA0017E82D /* PhotoGallery.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PhotoGallery.xcdatamodel; path = Model/PhotoGallery.xcdatamodel; sourceTree = "<group>"; };
 		4EBFF9931C2E9B1B0017E82D /* CustomFlickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomFlickerCell.swift; path = PhotoGallery/CustomViews/CustomFlickerCell.swift; sourceTree = "<group>"; };
@@ -51,9 +45,9 @@
 		4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestRouter.swift; path = API/RequestRouter.swift; sourceTree = "<group>"; };
 		4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIInterface.swift; path = API/APIInterface.swift; sourceTree = "<group>"; };
 		4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = "View Controllers/PreviewViewController.swift"; sourceTree = "<group>"; };
+		4EBFF9B31C2FD65A0017E82D /* Paginator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Paginator.swift; path = Utility/Paginator.swift; sourceTree = "<group>"; };
 		4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = Utility/LocationHandler.swift; sourceTree = "<group>"; };
-		4EBFF9B31C2FD65A0017E82D /* Paginator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Paginator.swift; path = Utility/Paginator.swift; sourceTree = "<group>"; };
 		C0C9411FD0406B994E784E83 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6878EAB919384D817E7D439 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,10 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				4EBFF9B31C2FD65A0017E82D /* Paginator.swift */,
-				4EBFF97F1C2E99010017E82D /* DiskCache.h */,
-				4EBFF9801C2E99010017E82D /* DiskCache.m */,
-				4EBFF9821C2E99010017E82D /* NSString+MD5.h */,
-				4EBFF9831C2E99010017E82D /* NSString+MD5.m */,
 				4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */,
 			);
 			name = Utility;
@@ -332,12 +322,10 @@
 			files = (
 				4EBFF9AB1C2EDE050017E82D /* Place+APIAdditions.swift in Sources */,
 				4EBFF9961C2E9B710017E82D /* AppDelegate.swift in Sources */,
-				4EBFF9871C2E99010017E82D /* NSString+MD5.m in Sources */,
 				4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */,
 				4EBFF99E1C2ED2640017E82D /* Photo.swift in Sources */,
 				4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */,
 				4EBFF99C1C2ED1E20017E82D /* Place.swift in Sources */,
-				4EBFF9851C2E99010017E82D /* DiskCache.m in Sources */,
 				4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */,
 				4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */,
 				4EBFF9941C2E9B1B0017E82D /* CustomFlickerCell.swift in Sources */,
