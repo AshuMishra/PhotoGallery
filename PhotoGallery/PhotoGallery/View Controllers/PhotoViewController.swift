@@ -28,6 +28,7 @@ class PhotoViewController: UIViewController {
 					return
 				}
 				weakSelf.searchArray = places
+				weakSelf.photoGalleryColletionView.reloadData()
 				weakSelf.getImages()
 			}else {
 				if error != nil {
@@ -46,8 +47,14 @@ class PhotoViewController: UIViewController {
 						return
 					}
 					weakSelf.images[place.placeId] = photo
-					self!.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
-					weakSelf.photoGalleryColletionView.reloadData()
+					weakSelf.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
+					if weakSelf.searchArray.count > 0 {
+						let index = weakSelf.searchArray.indexOf{$0.placeId == place.placeId}
+						if let index = index {
+							let indexPath = NSIndexPath(forRow: index, inSection: 0)
+							weakSelf.photoGalleryColletionView.reloadItemsAtIndexPaths([indexPath])
+						}
+					}
 					})
 			}
 		}
@@ -121,7 +128,7 @@ extension PhotoViewController : UICollectionViewDelegateFlowLayout {
 	}
 
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-		return UIEdgeInsetsMake(10,10, 0,10)
+		return UIEdgeInsetsMake(10, 10, 0, 10)
 	}
 }
 
