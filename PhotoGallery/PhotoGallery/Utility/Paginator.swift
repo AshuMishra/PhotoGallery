@@ -17,49 +17,42 @@ class Paginator: NSObject {
 	private var finalResult: [JSON]
 	var pageCount = 0
 	var nextPageToken: String = ""
-	var isCallInProgress:Bool = false
-	private var allPagesLoaded:Bool = false
-	
+	var isCallInProgress: Bool = false
+	private var allPagesLoaded: Bool = false
 	typealias RequestCompletionBlock = (result: [JSON]?, error: APIError?, allPagesLoaded:Bool) -> ()
-	
+
 	init(requestUrl: URLRequestConvertible) {
 		url = requestUrl
 		finalResult = [JSON]()
 	}
-	
+
 	func reset() {
 		pageCount = 0
 		finalResult = []
 	}
-	
+
 	func shouldLoadNext()-> Bool {
 		return !(allPagesLoaded && isCallInProgress)
 	}
 
 	func loadFirst(completion:RequestCompletionBlock) {
-		print("********************************")
-		print("loading first page")
 		reset()
 		isCallInProgress = true
-
-			let req = Alamofire.request(self.url).responseJSON(completionHandler: {
+		Alamofire.request(self.url).responseJSON(completionHandler: {
 			[weak self] response -> Void in
-				guard let weakSelf = self else {
-					return
-				}
-				print("entered into the block")
-				weakSelf.isCallInProgress = false
-				let parsedResult = weakSelf.parseResult(response)
-				if parsedResult.0 == true {
-					completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
-				}else if parsedResult.1 != nil {
-					completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
-				}else {
-					completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
-				}
-			})
-			debugPrint(req)
-
+			guard let weakSelf = self else {
+				return
+			}
+			weakSelf.isCallInProgress = false
+			let parsedResult = weakSelf.parseResult(response)
+			if parsedResult.0 == true {
+				completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+			}else if parsedResult.1 != nil {
+				completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
+			}else {
+				completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+			}
+		})
 	}
 
 	func parseResult(response: Response<AnyObject, NSError>) -> (Bool, APIError?) {
@@ -93,59 +86,26 @@ class Paginator: NSObject {
 	}
 
 	func loadNext(completion:RequestCompletionBlock) {
-		print("current count = \(finalResult.count)")
 		if isCallInProgress || allPagesLoaded {
+			print("All pages loaded...")
 			return
 		} else {
-//		print("next = \(nextPageToken)")
-		let nextURLString = String(format: "%@&pagetoken=%@", url.URLRequest.URLString, nextPageToken)
-		let req = Alamofire.request(.GET, nextURLString).responseJSON {[weak self] response -> Void in
-			guard let weakSelf = self else {
-				return
-			}
-			weakSelf.isCallInProgress = false
-			let parsedResult = weakSelf.parseResult(response)
-			if parsedResult.0 == true {
-				completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
-			}else if parsedResult.1 != nil {
-				completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
-			}else {
-				completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+			isCallInProgress = true
+			let nextURLString = String(format: "%@&pagetoken=%@", url.URLRequest.URLString, nextPageToken)
+			Alamofire.request(.GET, nextURLString).responseJSON {[weak self] response -> Void in
+				guard let weakSelf = self else {
+					return
+				}
+				weakSelf.isCallInProgress = false
+				let parsedResult = weakSelf.parseResult(response)
+				if parsedResult.0 == true {
+					completion(result: weakSelf.finalResult, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+				}else if parsedResult.1 != nil {
+					completion(result: nil, error: parsedResult.1, allPagesLoaded: weakSelf.allPagesLoaded)
+				}else {
+					completion(result: nil, error: nil, allPagesLoaded: weakSelf.allPagesLoaded)
+				}
 			}
 		}
-			debugPrint(req)
 	}
-	}
-
 }
-
-//
-//	func loadNext(completionBlock:RequestCompletionBlock) {
-//		if (self.isCallInProgress) {return}
-//		var checkInternetConnection:Bool = IJReachability.isConnectedToNetwork()
-//		if checkInternetConnection {
-//			var params = parameters
-//			self.pageCount =  self.pageCount + 1
-//			params["page"] = String(self.pageCount)
-//			isCallInProgress = true
-//			Alamofire.request(.GET, baseURL, parameters: params, encoding: ParameterEncoding.URL).responseJSON { 
-//(request, response, data , error) -> Void in
-//				let jsonData = JSON(data!)
-//				let photos: Array<JSON> = jsonData["photos"].arrayValue
-//				for photo in photos {
-//					let dict:Dictionary = photo.dictionaryValue
-//					var URLString:String = dict["image_url"]!.stringValue
-//					self.finalResult.append(URLString)
-//				}
-//				completionBlock(result: self.finalResult,error: error,allPagesLoaded:false)
-//				self.isCallInProgress = false
-//			}
-//			
-//		}else {
-////			self.showNetworkError()
-//			completionBlock(result: self.finalResult, error: nil, allPagesLoaded: false)
-//			isCallInProgress = false
-//		}
-//	  }
-//	
-//}

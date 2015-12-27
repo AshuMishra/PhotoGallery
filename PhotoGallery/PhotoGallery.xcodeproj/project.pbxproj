@@ -17,7 +17,6 @@
 		4EBFF99C1C2ED1E20017E82D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF99B1C2ED1E20017E82D /* Place.swift */; };
 		4EBFF99E1C2ED2640017E82D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF99D1C2ED2640017E82D /* Photo.swift */; };
 		4EBFF9A91C2EDE050017E82D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A51C2EDE050017E82D /* APIError.swift */; };
-		4EBFF9AB1C2EDE050017E82D /* Place+APIAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A71C2EDE050017E82D /* Place+APIAdditions.swift */; };
 		4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */; };
 		4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */; };
 		4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */; };
@@ -41,7 +40,6 @@
 		4EBFF99B1C2ED1E20017E82D /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Place.swift; path = Model/Place.swift; sourceTree = "<group>"; };
 		4EBFF99D1C2ED2640017E82D /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Model/Photo.swift; sourceTree = "<group>"; };
 		4EBFF9A51C2EDE050017E82D /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = API/APIError.swift; sourceTree = "<group>"; };
-		4EBFF9A71C2EDE050017E82D /* Place+APIAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Place+APIAdditions.swift"; path = "API/Place+APIAdditions.swift"; sourceTree = "<group>"; };
 		4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestRouter.swift; path = API/RequestRouter.swift; sourceTree = "<group>"; };
 		4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIInterface.swift; path = API/APIInterface.swift; sourceTree = "<group>"; };
 		4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = "View Controllers/PreviewViewController.swift"; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				4EBFF9A51C2EDE050017E82D /* APIError.swift */,
-				4EBFF9A71C2EDE050017E82D /* Place+APIAdditions.swift */,
 				4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */,
 				4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */,
 			);
@@ -320,7 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EBFF9AB1C2EDE050017E82D /* Place+APIAdditions.swift in Sources */,
 				4EBFF9961C2E9B710017E82D /* AppDelegate.swift in Sources */,
 				4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */,
 				4EBFF99E1C2ED2640017E82D /* Photo.swift in Sources */,

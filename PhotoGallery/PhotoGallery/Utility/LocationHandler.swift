@@ -2,7 +2,7 @@
 //  LocationManager.swift
 //  PhotoGallery
 //
-//  Created by Susmita Horrow on 27/12/15.
+//  Created by Ashutosh Mishra on 27/12/15.
 //  Copyright © 2015 Ashu.com. All rights reserved.
 //
 

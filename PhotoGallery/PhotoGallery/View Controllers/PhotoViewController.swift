@@ -16,20 +16,28 @@ class PhotoViewController: UIViewController {
 	@IBOutlet weak var placeSearchBar: UISearchBar!
 	var paginator: Paginator?
 	var searchArray = [Place]()
-	var images = [String: UIImage]()
-	let imageCache = NSCache()
 
+	//MARK: View LifeCycle Methods
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupPaginator()
+		initialSetup()
 		getCurrentLocation()
 	}
 
-	private func setupPaginator() {
-		paginator = Paginator(requestUrl: RequestRouter.fetchNearby("bar"))
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+
+	//MARK: Initial setup methods
+	private func initialSetup() {
+		let layout = UICollectionViewFlowLayout()
+		layout.footerReferenceSize = CGSize(width: self.photoGalleryColletionView!.bounds.size.width, height: 100.0)
+		self.photoGalleryColletionView!.collectionViewLayout = layout
 	}
 
 	private func getNearByPlacesWithImage(placeName: String) {
+		paginator = Paginator(requestUrl: RequestRouter.fetchNearby(placeName))
 		searchArray.removeAll()
 		paginator?.loadFirst({ [weak self] (result, error, allPagesLoaded) -> () in
 			guard let weakSelf = self else {
@@ -44,42 +52,6 @@ class PhotoViewController: UIViewController {
 				print("\(error?.message)")
 			}
 		})
-//		Place.fetchNearbyPlaces(placeName) { [weak self](places, error) -> Void in
-//			if let places = places {
-//				guard let weakSelf = self else {
-//					return
-//				}
-//				weakSelf.searchArray = places
-//				weakSelf.photoGalleryColletionView.reloadData()
-////				weakSelf.getImages()
-//			}else {
-//				if error != nil {
-//					print("\(error?.message)")
-//				}
-//			}
-//		}
-	}
-
-	private func getImages() {
-		for place in searchArray {
-			if let photos = place.photos where photos.count > 0 {
-				let photo = photos[0] as Photo
-				Place.fetchPhotos(photo.reference, completion: {[weak self] (photo, error) -> Void in
-					guard let weakSelf = self else {
-						return
-					}
-					weakSelf.images[place.placeId] = photo
-					weakSelf.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
-					if weakSelf.searchArray.count > 0 {
-						let index = weakSelf.searchArray.indexOf{$0.placeId == place.placeId}
-						if let index = index {
-							let indexPath = NSIndexPath(forRow: index, inSection: 0)
-							weakSelf.photoGalleryColletionView.reloadItemsAtIndexPaths([indexPath])
-						}
-					}
-					})
-			}
-		}
 	}
 
 	private func getCurrentLocation ()  {
@@ -96,11 +68,6 @@ class PhotoViewController: UIViewController {
 			}else {
 			}
 		}
-	}
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -167,18 +134,7 @@ extension PhotoViewController : UISearchBarDelegate {
 		placeSearchBar.resignFirstResponder()
 		self.searchArray.removeAll()
 		if let searchText = searchBar.text where searchText.characters.count >= 3 {
-			if paginator?.nextPageToken.isEmpty == true {
-				getNearByPlacesWithImage(searchText)
-			}else {
-				paginator?.loadNext({ (result, error, allPagesLoaded) -> () in
-					if let result = result {
-						for placeInfo in result {
-							self.searchArray.append(Place(info: placeInfo))
-						}
-						self.photoGalleryColletionView.reloadData()
-					}
-				})
-			}
+			getNearByPlacesWithImage(searchText)
 		}
 	}
 	
@@ -188,4 +144,25 @@ extension PhotoViewController : UISearchBarDelegate {
 	}
 }
 
+//MARK: ScrollView Delegate Methods:-
+extension PhotoViewController: UIScrollViewDelegate {
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
+			print("Tring to load next.......")
+			paginator?.loadNext({ [weak self]  (result, error, allPagesLoaded) -> () in
+				guard let weakSelf = self else {
+					return
+				}
+				if let result = result {
+					weakSelf.searchArray.removeAll()
+					for placeInfo in result {
+						weakSelf.searchArray.append(Place(info: placeInfo))
+					}
+					print("Count after loading = \(weakSelf.searchArray.count)")
+					weakSelf.photoGalleryColletionView.reloadData()
+				}
+			})
+		}
+	}
+}
 

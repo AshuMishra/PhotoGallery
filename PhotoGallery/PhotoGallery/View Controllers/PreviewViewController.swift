@@ -2,7 +2,7 @@
 //  PreviewViewController.swift
 //  iAppStreetApp
 //
-//  Created by Susmita Horrow on 26/12/15.
+//  Created by Ashutosh Mishra on 26/12/15.
 //  Copyright © 2015 Ashutosh Mishra. All rights reserved.
 //
 
