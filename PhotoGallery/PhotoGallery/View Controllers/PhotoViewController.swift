@@ -17,37 +17,51 @@ class PhotoViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		LocationHandler.sharedInstance.fetchLocation { (location, error) -> () in
-			print("location = \(location)")
+		getCurrentLocation()
+	}
+
+	private func getNearByPlacesWithImage() {
+		Place.fetchNearbyPlaces("hospitals") { [weak self](places, error) -> Void in
+			if let places = places {
+				guard let weakSelf = self else {
+					return
+				}
+				weakSelf.searchArray = places
+				weakSelf.getImages()
+			}
+		}
+	}
+
+	private func getImages() {
+		for place in searchArray {
+			if let photos = place.photos where photos.count > 0 {
+				let photo = photos[0] as Photo
+				Place.fetchPhotos(photo.reference, completion: {[weak self] (photo, error) -> Void in
+					guard let weakSelf = self else {
+						return
+					}
+					weakSelf.images[place.placeId] = photo
+					self!.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
+					weakSelf.photoGalleryColletionView.reloadData()
+				})
+			}
+		}
+	}
+
+	private func getCurrentLocation ()  {
+		LocationHandler.sharedInstance.fetchLocation {[weak self] (location, error) -> () in
 			print("(\(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
 			if error != nil {
-				let alert: UIAlertView = UIAlertView(title: "Location Service Disabled",
-					message: "To enable, please go to Settings and turn on Location Service for this app.",
-					delegate: nil, cancelButtonTitle: "Not Now", otherButtonTitles: "Enable")
-
-				alert.show()
+				let alertVC = UIAlertController(title: "Location Service Disabled",
+											  message:  "To enable, please go to Settings and turn on Location Service for this app.",
+									   preferredStyle: UIAlertControllerStyle.Alert)
+				self?.presentViewController(alertVC, animated: true, completion: nil)
 			} else {
-				Place.fetchNearbyPlaces("bar") { [weak self](places, error) -> Void in
-					if let places = places {
-						guard let weakSelf = self else {
-							return
-						}
-						weakSelf.searchArray = places
-						for place in places {
-							if let photos = place.photos where photos.count > 0 {
-								let photo = photos[0] as Photo
-								Place.fetchPhotos(photo.reference, completion: { (photo, error) -> Void in
-									weakSelf.images[place.placeId] = photo
-									self!.imageCache.setObject(photo!, forKey:weakSelf.images[place.placeId]!)
-									weakSelf.photoGalleryColletionView.reloadData()
-								})
-							}
-						}
-					}
+				guard let weakSelf = self else {
+					return
 				}
-
+				weakSelf.getNearByPlacesWithImage()
 			}
-
 		}
 	}
 
