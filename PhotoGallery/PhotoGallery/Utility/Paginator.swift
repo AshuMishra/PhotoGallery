@@ -16,13 +16,13 @@ class Paginator: NSObject {
 	
 	var url: String
 	var parameters: [String:String]
-	private var finalResult: [String]
+	private var finalResult: [AnyObject]
 	var pageCount = 0
 	var nextPageToken: NSString?
 	var isCallInProgress:Bool = false
 	var allPagesLoaded:Bool = false
 	
-	typealias RequestCompletionBlock = (result: [String]?, error: NSError?,allPagesLoaded:Bool) -> ()
+	typealias RequestCompletionBlock = (result: [AnyObject]?, error: NSError?, allPagesLoaded:Bool) -> ()
 	
 	init(urlString:NSString,queryParameters:[String:String]?) {
 		url = urlString as String

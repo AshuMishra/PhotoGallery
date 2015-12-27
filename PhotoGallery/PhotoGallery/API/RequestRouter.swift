@@ -3,14 +3,14 @@
 //  PhotoGallery
 //
 //  Created by Ashutosh Mishra on 26/12/15.
-//  Copyright © 2015 Ashu.com. All rights reserved.
-//
+//  Copyright © 2015 Ashu.com. All rights reserved.'//
 
 import Foundation
 import Alamofire
 import CoreLocation
 
 enum RequestRouter: URLRequestConvertible {
+//	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
 	private static let apiKey = "AIzaSyAs1tk8BpcNyDqMd3stybMXEyuika1G90c"
 	private static let baseURL = "https://maps.googleapis.com/maps/api/place"
 	private static let placeSearchURL = "/nearbysearch/json"
