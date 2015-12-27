@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class PhotoViewController: UIViewController {
 
@@ -29,7 +30,7 @@ class PhotoViewController: UIViewController {
 				}
 				weakSelf.searchArray = places
 				weakSelf.photoGalleryColletionView.reloadData()
-				weakSelf.getImages()
+//				weakSelf.getImages()
 			}else {
 				if error != nil {
 					print("\(error?.message)")
@@ -83,12 +84,14 @@ class PhotoViewController: UIViewController {
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		let destinationVC = segue.destinationViewController as! PreviewViewController
-		let indexPath = photoGalleryColletionView.indexPathsForSelectedItems()?.first
-		if let indexPath = indexPath {
-			let place = searchArray[indexPath.row]
-			if let photo = images[place.placeId] {
-				destinationVC.image = photo
+		if segue.identifier == "ListToPhotoVC" {
+			let destinationVC = segue.destinationViewController as! PreviewViewController
+			let indexPath = photoGalleryColletionView.indexPathsForSelectedItems()?.first
+			if let indexPath = indexPath {
+				let cell = photoGalleryColletionView.cellForItemAtIndexPath(indexPath) as! CustomFlickerCell
+				if let photo = cell.flickerImageview.image {
+					destinationVC.image = photo
+				}
 			}
 		}
 	}
@@ -111,13 +114,17 @@ extension PhotoViewController : UICollectionViewDataSource {
 		if (searchArray.count > 0) {
 			let place = searchArray[indexPath.row] as Place
 			cell.placeNameLabel.text = place.name
-			cell.flickerImageview.image = images[place.placeId]
+			if let photos = place.photos where photos.count > 0 {
+				let photo = photos[0]
+				cell.flickerImageview.af_setImageWithURL(RequestRouter.fetchPhoto(photo.reference).URLRequest.URL!)
+			}
+//			cell.flickerImageview.image = images[place.placeId]
 		}
 		return cell
 	}
 }
 
-//MARK: delegate methods of UICollectionView
+//MARK: delegate methods of UICollectionViewDelegateFlowLayout
 extension PhotoViewController : UICollectionViewDelegateFlowLayout {
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 		let intercellDistance: Int = 10

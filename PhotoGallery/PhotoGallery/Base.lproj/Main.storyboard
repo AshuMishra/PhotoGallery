@@ -78,7 +78,7 @@
                                         <connections>
                                             <outlet property="flickerImageview" destination="1G5-hD-3ai" id="ycZ-3o-6Zc"/>
                                             <outlet property="placeNameLabel" destination="CbC-tW-Lur" id="8IS-CK-zOP"/>
-                                            <segue destination="cMN-pB-BY9" kind="showDetail" id="IAH-c0-FOj"/>
+                                            <segue destination="cMN-pB-BY9" kind="show" identifier="ListToPhotoVC" id="LC0-Rd-fG3"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -115,17 +115,17 @@
         <!--Detail-->
         <scene sceneID="iaB-tI-Y4I">
             <objects>
-                <viewController title="Detail" id="cMN-pB-BY9" customClass="PreviewViewController" customModule="PhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" automaticallyAdjustsScrollViewInsets="NO" id="cMN-pB-BY9" customClass="PreviewViewController" customModule="PhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ztg-ac-JPw"/>
                         <viewControllerLayoutGuide type="bottom" id="wsw-kG-6Ki"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pyg-cX-kxQ">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-it-YI5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aps-Xj-iRm">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
@@ -160,10 +160,9 @@
                             <constraint firstAttribute="trailing" secondItem="Vcl-it-YI5" secondAttribute="trailing" id="5Pv-Oo-Kjb"/>
                             <constraint firstItem="Vcl-it-YI5" firstAttribute="top" secondItem="Ztg-ac-JPw" secondAttribute="bottom" id="NeD-Ja-o07"/>
                             <constraint firstItem="Vcl-it-YI5" firstAttribute="leading" secondItem="pyg-cX-kxQ" secondAttribute="leading" id="QOa-Sk-L2e"/>
-                            <constraint firstItem="Vcl-it-YI5" firstAttribute="height" secondItem="pyg-cX-kxQ" secondAttribute="height" id="uTg-HL-OUC"/>
+                            <constraint firstItem="Vcl-it-YI5" firstAttribute="height" secondItem="pyg-cX-kxQ" secondAttribute="height" constant="-64" id="uTg-HL-OUC"/>
                         </constraints>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="imageView" destination="aps-Xj-iRm" id="meV-rT-vun"/>
                         <outlet property="scrollView" destination="Vcl-it-YI5" id="AG2-h9-goJ"/>
