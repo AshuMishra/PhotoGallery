@@ -11,7 +11,6 @@ import AlamofireImage
 import SwiftyJSON
 
 class PhotoViewController: UIViewController {
-
 	@IBOutlet weak var photoGalleryColletionView: UICollectionView!
 	@IBOutlet weak var placeSearchBar: UISearchBar!
 	private var paginator: Paginator?
@@ -51,6 +50,9 @@ class PhotoViewController: UIViewController {
 				if let result = result {
 					weakSelf.reloadCollection(result)
 				}
+				if let error = error {
+					weakSelf.showAlert("Error", messgae: error.message)
+				}
 				print("Count after Pull to refresh = \(weakSelf.searchArray.count)")
 			})
 		}
@@ -61,6 +63,18 @@ class PhotoViewController: UIViewController {
 			searchArray.append(Place(info: placeInfo))
 			photoGalleryColletionView.reloadData()
 		}
+	}
+
+	private func showAlert(title: String, messgae: String) {
+		let alertVC = UIAlertController(title: title,message: messgae, preferredStyle: UIAlertControllerStyle.Alert)
+		let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default) { [weak self] action -> Void in
+			guard let weakSelf = self else {
+				return
+			}
+			weakSelf.dismissViewControllerAnimated(true, completion: nil)
+		}
+		alertVC.addAction(action)
+		presentViewController(alertVC, animated: true, completion: nil)
 	}
 
 	private func getNearByPlacesWithImage(placeName: String) {
@@ -75,8 +89,9 @@ class PhotoViewController: UIViewController {
 					weakSelf.searchArray.append(Place(info: placeInfo))
 				}
 				weakSelf.photoGalleryColletionView.reloadData()
-			}else {
-				print("\(error?.message)")
+			}
+			if let error = error {
+				weakSelf.showAlert("Error", messgae: error.message)
 			}
 		})
 	}
@@ -88,10 +103,7 @@ class PhotoViewController: UIViewController {
 			}
 			print("(Location = \(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
 			if error != nil {
-				let alertVC = UIAlertController(title: "Location Service Disabled",
-					message: "To enable, please go to Settings and turn on Location Service for this app.",
-					preferredStyle: UIAlertControllerStyle.Alert)
-				weakSelf.presentViewController(alertVC, animated: true, completion: nil)
+				weakSelf.showAlert("Location Service Disabled", messgae: "To enable, please go to Settings and turn on Location Service for this app.")
 			}
 		}
 	}
@@ -129,9 +141,8 @@ extension PhotoViewController : UICollectionViewDataSource {
 			cell.placeNameLabel.text = place.name
 			if let photos = place.photos where photos.count > 0 {
 				let photo = photos[0]
-//				cell.flickerImageview.af_setImageWithURL(RequestRouter.fetchPhoto(photo.reference).URLRequest.URL!)
+				cell.flickerImageview.af_setImageWithURL(RequestRouter.fetchPhoto(photo.reference).URLRequest.URL!)
 			}
-//			cell.flickerImageview.image = images[place.placeId]
 		}
 		return cell
 	}
@@ -185,6 +196,9 @@ extension PhotoViewController: UIScrollViewDelegate {
 					}
 					print("Count after loading = \(weakSelf.searchArray.count)")
 					weakSelf.photoGalleryColletionView.reloadData()
+				}
+				if let error = error {
+					weakSelf.showAlert("Error", messgae: error.message)
 				}
 			})
 		}
