@@ -18,11 +18,11 @@
 		4EBFF99E1C2ED2640017E82D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF99D1C2ED2640017E82D /* Photo.swift */; };
 		4EBFF9A91C2EDE050017E82D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A51C2EDE050017E82D /* APIError.swift */; };
 		4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */; };
-		4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */; };
 		4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */; };
 		4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B31C2FD65A0017E82D /* Paginator.swift */; };
 		4EBFF9B71C2FE2490017E82D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */; };
 		4EBFF9B91C2FE29A0017E82D /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */; };
+		4EBFF9BB1C30EC8B0017E82D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFF9BA1C30EC8B0017E82D /* Reachability.swift */; };
 		DACDADD669CECA68333FC892 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9411FD0406B994E784E83 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,11 +41,11 @@
 		4EBFF99D1C2ED2640017E82D /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Model/Photo.swift; sourceTree = "<group>"; };
 		4EBFF9A51C2EDE050017E82D /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = API/APIError.swift; sourceTree = "<group>"; };
 		4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestRouter.swift; path = API/RequestRouter.swift; sourceTree = "<group>"; };
-		4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIInterface.swift; path = API/APIInterface.swift; sourceTree = "<group>"; };
 		4EBFF9B11C2F16790017E82D /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = "View Controllers/PreviewViewController.swift"; sourceTree = "<group>"; };
 		4EBFF9B31C2FD65A0017E82D /* Paginator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Paginator.swift; path = Utility/Paginator.swift; sourceTree = "<group>"; };
 		4EBFF9B61C2FE2490017E82D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = Utility/LocationHandler.swift; sourceTree = "<group>"; };
+		4EBFF9BA1C30EC8B0017E82D /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Utility/Reachability.swift; sourceTree = "<group>"; };
 		C0C9411FD0406B994E784E83 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6878EAB919384D817E7D439 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +111,6 @@
 			children = (
 				4EBFF9A51C2EDE050017E82D /* APIError.swift */,
 				4EBFF9A81C2EDE050017E82D /* RequestRouter.swift */,
-				4EBFF9AD1C2EE61F0017E82D /* APIInterface.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -172,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				4EBFF9B31C2FD65A0017E82D /* Paginator.swift */,
+				4EBFF9BA1C30EC8B0017E82D /* Reachability.swift */,
 				4EBFF9B81C2FE29A0017E82D /* LocationHandler.swift */,
 			);
 			name = Utility;
@@ -320,7 +320,6 @@
 				4EBFF9961C2E9B710017E82D /* AppDelegate.swift in Sources */,
 				4EBFF9B41C2FD65A0017E82D /* Paginator.swift in Sources */,
 				4EBFF99E1C2ED2640017E82D /* Photo.swift in Sources */,
-				4EBFF9AE1C2EE61F0017E82D /* APIInterface.swift in Sources */,
 				4EBFF99C1C2ED1E20017E82D /* Place.swift in Sources */,
 				4EBFF9911C2E9AAA0017E82D /* PhotoGallery.xcdatamodel in Sources */,
 				4EBFF9AC1C2EDE050017E82D /* RequestRouter.swift in Sources */,
@@ -329,6 +328,7 @@
 				4EBFF98A1C2E99E80017E82D /* PhotoViewController.swift in Sources */,
 				4EBFF9B21C2F16790017E82D /* PreviewViewController.swift in Sources */,
 				4EBFF9A91C2EDE050017E82D /* APIError.swift in Sources */,
+				4EBFF9BB1C30EC8B0017E82D /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

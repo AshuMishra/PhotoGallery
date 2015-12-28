@@ -36,6 +36,11 @@ class Paginator: NSObject {
 	}
 
 	func loadFirst(completion:RequestCompletionBlock) {
+		if Reachability.isConnectedToNetwork() == false {
+			let networkError = APIError(code: 5, message: "No Network Connection")
+			completion(result: nil, error: networkError, allPagesLoaded: false)
+			return
+		}
 		reset()
 		isCallInProgress = true
 		Alamofire.request(self.url).responseJSON(completionHandler: {
@@ -86,6 +91,11 @@ class Paginator: NSObject {
 	}
 
 	func loadNext(completion:RequestCompletionBlock) {
+		if Reachability.isConnectedToNetwork() == false {
+			let networkError = APIError(code: 5, message: "No Network Connection")
+			completion(result: nil, error: networkError, allPagesLoaded: false)
+			return
+		}
 		if isCallInProgress || allPagesLoaded {
 			print("All pages loaded...")
 			return
