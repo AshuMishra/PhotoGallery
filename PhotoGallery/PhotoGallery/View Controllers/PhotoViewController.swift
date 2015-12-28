@@ -14,8 +14,9 @@ class PhotoViewController: UIViewController {
 
 	@IBOutlet weak var photoGalleryColletionView: UICollectionView!
 	@IBOutlet weak var placeSearchBar: UISearchBar!
-	var paginator: Paginator?
-	var searchArray = [Place]()
+	private var paginator: Paginator?
+	private var searchArray = [Place]()
+	private let refreshControl = UIRefreshControl()
 
 	//MARK: View LifeCycle Methods
 	override func viewDidLoad() {
@@ -33,7 +34,33 @@ class PhotoViewController: UIViewController {
 	private func initialSetup() {
 		let layout = UICollectionViewFlowLayout()
 		layout.footerReferenceSize = CGSize(width: self.photoGalleryColletionView!.bounds.size.width, height: 100.0)
-		self.photoGalleryColletionView!.collectionViewLayout = layout
+		photoGalleryColletionView!.collectionViewLayout = layout
+		refreshControl.addTarget(self, action: "handleRefreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+		photoGalleryColletionView.addSubview(refreshControl)
+	}
+
+	@objc private func handleRefreshControlAction(refreshControl: UIRefreshControl) {
+		if let searchText = placeSearchBar.text where searchText.characters.count >= 3 {
+			paginator = Paginator(requestUrl: RequestRouter.fetchNearby(searchText))
+			searchArray.removeAll()
+			paginator?.loadFirst({ [weak self] (result, error, allPagesLoaded) -> () in
+				guard let weakSelf = self else {
+					return
+				}
+				refreshControl.endRefreshing()
+				if let result = result {
+					weakSelf.reloadCollection(result)
+				}
+				print("Count after Pull to refresh = \(weakSelf.searchArray.count)")
+			})
+		}
+	}
+
+	private func reloadCollection(let result: [JSON]) {
+		for placeInfo in result {
+			searchArray.append(Place(info: placeInfo))
+			photoGalleryColletionView.reloadData()
+		}
 	}
 
 	private func getNearByPlacesWithImage(placeName: String) {
@@ -59,13 +86,12 @@ class PhotoViewController: UIViewController {
 			guard let weakSelf = self else {
 				return
 			}
-			print("(\(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
+			print("(Location = \(LocationHandler.sharedInstance.currentUserLocation.coordinate.latitude),\(LocationHandler.sharedInstance.currentUserLocation.coordinate.longitude))")
 			if error != nil {
 				let alertVC = UIAlertController(title: "Location Service Disabled",
 					message: "To enable, please go to Settings and turn on Location Service for this app.",
 					preferredStyle: UIAlertControllerStyle.Alert)
 				weakSelf.presentViewController(alertVC, animated: true, completion: nil)
-			}else {
 			}
 		}
 	}
@@ -132,7 +158,6 @@ extension PhotoViewController : UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		searchArray.removeAll(keepCapacity: true)
 		placeSearchBar.resignFirstResponder()
-		self.searchArray.removeAll()
 		if let searchText = searchBar.text where searchText.characters.count >= 3 {
 			getNearByPlacesWithImage(searchText)
 		}
